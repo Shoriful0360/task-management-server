@@ -56,6 +56,17 @@ app.get("/tasks", async (req, res) => {
   const result=await taskCollection.updateOne(query,updateDoc)
 res.send(result)
   });
+  app.patch("/tasks-update/:id", async (req, res) => {
+  const id=req.params.id;
+
+  const {status,title,description}=req.body;
+  const query={_id: new ObjectId(id)}
+  const updateDoc={
+    $set:{status,title,description}
+  }
+  const result=await taskCollection.updateOne(query,updateDoc)
+res.send(result)
+  });
   
   // 🔹 Delete a task
   app.delete("/tasks/:id", async (req, res) => {
